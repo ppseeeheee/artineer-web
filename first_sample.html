@@ -69,12 +69,20 @@
         <hr>
         <hr>
         <h3 id="guestbookTitle">방명록</h3>
-        <ul>
+        <form action="">
+            <label for="nick">닉네임</label>
+            <input name="nick" type="text">
+            <label for="content">내용</label>
+            <input name="content" type="text">
+            <button type="submit">작성</button>
+        </form>
+        <ul id="comments">
             <li class="comment"><strong>김인경:</strong> 가독성이 떨어져요 ㅠ </li>
-            <li class="comment"><strong>이영희:</strong> 저도 웹 공부 시작했어요.</li>
+            <li class="comment"><strong>표민서:</strong> 나는 아아만 먹어!</li>
             <li class="comment"><strong>박민수:</strong> 배경색이 눈에 확 들어와요.</li>
             <li class="comment"><strong>최유리:</strong> 앞으로의 성장이 기대됩니다!</li>
         </ul>
+        
     </section>
 
     <aside>
@@ -88,7 +96,28 @@
         <p>Copyright © 2026 홍길동. All rights reserved.</p>
     </footer>
 </body>
+<script>
+    document.querySelector('form').addEventListener('submit', (e) => {
+        e.preventDefault(); // 페이지 새로고침 방지
 
+        const formData = new FormData(e.target); // 이벤트가 발생한거
+        const nick = formData.get('nick');
+        const content = formData.get('content');
+
+        // alert(`닉네임: ${nick}\n내용: ${content}`);
+        comList = document.querySelector('#comments') // ul 태그 선택
+
+        const newComment = document.createElement('li');
+        newComment.className = 'comment';
+        newComment.innerHTML = `<strong>${nick}:</strong> ${content}`;
+
+        // comList.append(newComment);
+        comList.prepend(newComment);
+
+        // 4. 입력창 초기화
+        e.target.reset();
+    });
+</script>
 <!-- <script>
     document.addEventListener('DOMContentLoaded', () => {
         // 10ms(0.01초) 뒤에 배경을 검게 바꿈
